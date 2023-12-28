@@ -13,13 +13,17 @@ var (
 		Short: "Convert DOS file format to Unix file format",
 		Long: `dos2unix will convert DOS/Windows files using Carriage Return and Line Feed (CRLF) as newline into Unix text file by replacing the Carriage Return Line Feed with
 Line Feed (LF) character.`,
+		Args: cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) != 1 {
-				fmt.Fprintf(os.Stderr, "Error: expected 1 argument, got %d\n", len(args))
+			in, out, err := openFiles(args[0])
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
 				os.Exit(1)
 			}
+			defer in.Close()
+			defer out.Close()
 
-			err := convert(args[0], "dos2unix")
+			err = convert(in, out, dos2unix)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, err)
 				os.Exit(1)
