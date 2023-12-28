@@ -1,4 +1,4 @@
-# unix2dos-go
+# unix2dos-go [![Go](https://github.com/lescactus/unix2dos-go/actions/workflows/go.yml/badge.svg)](https://github.com/lescactus/unix2dos-go/actions/workflows/go.yml) [![release](https://github.com/lescactus/unix2dos-go/actions/workflows/release.yml/badge.svg)](https://github.com/lescactus/unix2dos-go/actions/workflows/release.yml)
 
 This repository contains a simple cli written in go to convert DOS/Windows file newlines into Unix file newlines and vice-versa.
 
@@ -31,9 +31,31 @@ Flags:
 
 ## Installation
 
+Prebuilt binaries can be downloaded from the GitHub Releases [section](https://github.com/lescactus/unix2dos-go/releases), or using a Docker image from the Github Container Registry.
+
+### Running with Docker
+
+```bash
+docker run \
+  --rm \
+  -it \
+  --name unix2dos-go \
+  --volume "$PWD":/tmp \
+  --workdir /tmp \
+  ghcr.io/lescactus/unix2dos-go unix2dos <file>
+```
+
+## Building
+
+<details>
+
+### Requirements
+
+* Golang 1.16 or higher
+
 ### From source with go
 
-You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.16 and go 1.16 only, but should work with go >= 1.16). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
+You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go >= 1.16). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
 
 ```sh
 # Clone this repository
@@ -70,3 +92,5 @@ docker build -t unix2dos-go .
 
 docker run --rm -v "$PWD":/tmp -w /tmp unix2dos-go unix2dos <file>
 ```
+
+</details>
